@@ -143,7 +143,7 @@ if (strlen($_SESSION['alogin']) == "") {
                             $totalBatches = $queryBatch->fetch(PDO::FETCH_ASSOC)['cnt'];
                             ?>
                             <h3><?php echo htmlentities($totalBatches); ?></h3>
-                            <p>Total Batches</p>
+                            <p>Total Batches ttt</p>
                         </div>
                         <div class="icon"><i class="fa-solid fa-layer-group"></i></div>
                     </div>
