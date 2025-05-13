@@ -132,7 +132,12 @@ if (strlen($_SESSION['alogin']) == "") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <?php
-                            $sqlBatch = "SELECT COUNT(*) as cnt FROM tblbatch";
+                            $sqlBatch = "SELECT COUNT(*) as cnt
+                                FROM tbltrainingcenter, tblscheme, tblsector, tbljobroll, tblbatch
+                                WHERE tblbatch.training_centre_id = tbltrainingcenter.TrainingcenterId
+                                  AND tblbatch.scheme_id = tblscheme.SchemeId
+                                  AND tblbatch.sector_id = tblsector.SectorId
+                                  AND tblbatch.job_roll_id = tbljobroll.JobrollId";
                             $queryBatch = $dbh->prepare($sqlBatch);
                             $queryBatch->execute();
                             $totalBatches = $queryBatch->fetch(PDO::FETCH_ASSOC)['cnt'];
