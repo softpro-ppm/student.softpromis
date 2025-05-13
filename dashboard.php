@@ -173,10 +173,16 @@ if (strlen($_SESSION['alogin']) == "") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <?php
-                            $sqlAssed = "SELECT id FROM tblbatch WHERE end_date < CURRENT_DATE()";
+                            $sqlAssed = "SELECT COUNT(*) as cnt
+                                FROM tbltrainingcenter, tblscheme, tblsector, tbljobroll, tblbatch
+                                WHERE tblbatch.training_centre_id = tbltrainingcenter.TrainingcenterId
+                                  AND tblbatch.scheme_id = tblscheme.SchemeId
+                                  AND tblbatch.sector_id = tblsector.SectorId
+                                  AND tblbatch.job_roll_id = tbljobroll.JobrollId
+                                  AND tblbatch.end_date < CURRENT_DATE()";
                             $queryAssed = $dbh->prepare($sqlAssed);
                             $queryAssed->execute();
-                            $assedBatches = $queryAssed->rowCount();
+                            $assedBatches = $queryAssed->fetch(PDO::FETCH_ASSOC)['cnt'];
                             ?>
                             <h3><?php echo htmlentities($assedBatches); ?></h3>
                             <p>Assed Batches</p>
