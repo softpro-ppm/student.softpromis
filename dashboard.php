@@ -132,10 +132,10 @@ if (strlen($_SESSION['alogin']) == "") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <?php
-                            $sqlBatch = "SELECT DISTINCT batch_name FROM tblbatch";
+                            $sqlBatch = "SELECT COUNT(*) as cnt FROM tblbatch";
                             $queryBatch = $dbh->prepare($sqlBatch);
                             $queryBatch->execute();
-                            $totalBatches = $queryBatch->rowCount();
+                            $totalBatches = $queryBatch->fetch(PDO::FETCH_ASSOC)['cnt'];
                             ?>
                             <h3><?php echo htmlentities($totalBatches); ?></h3>
                             <p>Total Batches</p>
